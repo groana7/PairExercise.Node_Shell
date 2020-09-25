@@ -10,11 +10,18 @@ process.stdout.write('prompt > ');
 
 process.stdin.on('data', (data) => {
     
-    const cmd = data.toString().trim()
+    let cmd = data.toString().trim()
+    cmd = cmd.split(" ")
 
-    if (cmd === 'pwd') {
+    if (cmd[0] === 'pwd') {
         require('./pwd');
-    } else {
+    } else if (cmd[0] === 'ls'){
+        require("./ls")
+    }else if (cmd[0] === 'cat'){
+        require("./cat")
+        module.exports = cmd[1]
+    }
+    else {
         process.stdout.write('You typed: ' + cmd);
         process.stdout.write('\nprompt > ');
     }
